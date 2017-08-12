@@ -15,6 +15,7 @@ class WehoDevCustomEvents {
     public function __construct() {
         add_action('init', array( $this, 'register_events_post_type') );
         add_action( 'wp_head', array( $this,'event_styles' ) );
+        add_action( 'wp_head', array( $this,'event_scripts' ) );
         add_filter( 'archive_template', array( $this, 'get_custom_post_type_template' ) );
     }
 
@@ -66,7 +67,7 @@ class WehoDevCustomEvents {
         return "foo = {$events['foo']}";
     }
 
-    function event_styles() {
+    public function event_styles() {
         ?>
         <style>
             ul#events li{
@@ -81,6 +82,13 @@ class WehoDevCustomEvents {
             }
         </style>
         <?php
+    }
+
+    public function event_scripts()
+    {
+        wp_register_script('wehodev-custom-events', plugins_url('assets/javascript/scripts.js', __FILE__), array('jquery'), '', true);
+        wp_enqueue_script('wehodev-custom-events');
+
     }
 
     public function get_custom_post_type_template( $archive_template ) {

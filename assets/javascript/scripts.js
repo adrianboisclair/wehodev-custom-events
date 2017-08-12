@@ -1,0 +1,1 @@
+console.log('WehoDev Events Plugin Scripts are running!');
